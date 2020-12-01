@@ -1,0 +1,26 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+flask = "*"
+flask_limiter = "*"
+flask-wtf = "*"
+bootstrap-flask = "*"
+gunicorn = "*"
+umpy = "*"
+sklearn = "*"
+tqdm = "*"
+matplotlib = "*"
+dm-sonnet = "==1.11"
+tensorflow = "==1.13.1"
+
+[requires]
+python_version = "3.7"
+
+[scripts]
+app = "python app.py"
+calculator = "python calculator.py"

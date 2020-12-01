@@ -1,0 +1,120 @@
+{% extends "layout.html" %}
+{% from 'bootstrap/form.html' import render_form %}
+
+{% block content %}
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top">Hi-CRISPR</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#score">Predict</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#details">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#about">Citation</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="bg-primary text-white">
+        <div class="container text-center">
+            <h1>Hi-CRISPR</h1>
+            <p class="lead">
+                Provides on-target cleavage efficiency prediction for SpCas9-HF1.
+            </p>
+            <p><a class="btn btn-link btn-lg" href="#details" role="button">Learn more &raquo;</a></p>
+        </div>
+    </header>
+
+    <section id="score">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2>Predict</h2>
+                    <p class="lead">
+                        To calculate efficiency score for multiple spacers please provide 23 base pair long spacer
+                        sequence(s) (with PAM) on separate lines. A maximum of 50 spacers can be calculated in batch
+                        mode, if you wish to calculate more please use the script at:
+                        <a href="https://github.com/welkergroup/HiCRISPR">https://github.com/welkergroup/HiCRISPR</a>.
+                    </p>
+                </div>
+            </div>
+            {% if details %}
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <div class="alert alert-success text-center">
+                            Calculated scores for {{ details | length }} sequences! ✨
+                        </div>
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col" rowspan="2" class="text-center align-middle">Sequence</th>
+                                <th scope="col" colspan="3" class="text-center">Hi-CRISPR</th>
+                            </tr>
+                            <tr>
+                                <th scope="col" class="text-right"><span data-toggle="tooltip" title="Values above -0.5 are considered effective".>A<sup>Ⓘ</sup></span></th>
+                                <th scope="col" class="text-right"><span  data-toggle="tooltip" title="Values are between 0 and 1 with values above 0.6 considered effective.">B<sup>Ⓘ</sup></span></th>
+                                <th scope="col" class="text-right"><span  data-toggle="tooltip" title="Values are between 0 and 1 with values above 0.7 considered effective.">C<sup>Ⓘ</sup></span></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for d in details %}
+                                <tr>
+                                    <td class="text-monospace">{{ d.sequence }}</td>
+                                    <td class="text-right {{ 'text-success' if d.scores.hi_crispr_a_cut else 'text-danger' }}">{{ "%.2f" | format(d.scores.hi_crispr_a) }}</td>
+                                    <td class="text-right {{ 'text-success' if d.scores.hi_crispr_b_cut else 'text-danger' }}">{{ "%.2f" | format(d.scores.hi_crispr_b) }}</td>
+                                    <td class="text-right {{ 'text-success' if d.scores.hi_crispr_c_cut else 'text-danger' }}">{{ "%.2f" | format(d.scores.hi_crispr_c) }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% endif %}
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    {{ render_form(form, button_style='success', action="#score") }}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="details" class="bg-light">
+        <div class="container">
+            <div class="row pb-5">
+                <div class="col-md-8 mx-auto">
+                    <h2>Heading</h2>
+                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
+                        mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
+                        magna mollis euismod. Donec sed odio dui. </p>
+                    <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2>Citation</h2>
+                    <p class="lead">
+                        If you use the tool please cite the publication:
+                        <a href="">...</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
