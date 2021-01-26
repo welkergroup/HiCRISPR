@@ -13,7 +13,7 @@ class SequenceForm(FlaskForm):
             Regexp("^(?:[ACGT]{23})(?:(?:\\s*\n\\s*)+(?:[ACGT]{23})){0,50}$", re.IGNORECASE,
                            message="Invalid sequence")
         ],
-        default="GGACAAGGGTGCATGCGAAGGGG\nGCAGAGAATAATGCTCGGAAGGG",
+        default="GCTGCAGAAGGGATTCCATGGGG\nGACTATTCTGTCATATGGATTGG",
         render_kw={"rows": 5, "class": "text-monospace"}
     )
     submit = SubmitField('Submit')
