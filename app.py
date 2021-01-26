@@ -13,6 +13,7 @@ from forms import SequenceForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(32)
+app.config['WTF_CSRF_ENABLED'] = False
 
 bootstrap = Bootstrap(app)
 
