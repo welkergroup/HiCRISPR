@@ -16,7 +16,7 @@ sklearn = "*"
 tqdm = "*"
 matplotlib = "*"
 dm-sonnet = "==1.11"
-tensorflow = "==1.13.1"
+tensorflow = "==2.5.3"
 
 [requires]
 python_version = "3.7"
